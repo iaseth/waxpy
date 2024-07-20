@@ -1,5 +1,5 @@
+from .wax_candle import WaxCandle
 from .wax_header import WaxHeader
-from .utils import bytes_to_candle
 
 
 
@@ -12,7 +12,7 @@ class WaxFile:
 			for row_index in range(self.header.row_count):
 				candle_bytes = f.read(self.header.row_length)
 				if not candle_bytes: break
-				candle = bytes_to_candle(candle_bytes)
+				candle = WaxCandle(candle_bytes)
 				self.candles.append(candle)
 
 
