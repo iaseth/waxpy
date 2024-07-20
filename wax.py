@@ -2,23 +2,13 @@
 import json
 import sys
 
-from pywax import bytes_to_candle, candle_to_bytes, get_header_bytes
+from pywax import WaxFile, candle_to_bytes, get_header_bytes
 
 
 
 def unwax(input_filepath, output_filepath):
-	with open(input_filepath, 'rb') as f:
-		header_bytes = f.read(16)
-
-		idx = 0
-		while True:
-			candle_bytes = f.read(24)
-			if candle_bytes:
-				candle = bytes_to_candle(candle_bytes)
-				print(f"{idx+1}. {candle}")
-				idx += 1
-			else:
-				break
+	wax = WaxFile(input_filepath)
+	wax.print_candles()
 
 
 def wax(input_filepath, output_filepath):
