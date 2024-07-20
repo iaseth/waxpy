@@ -12,12 +12,12 @@ class WaxFile:
 			for row_index in range(self.header.row_count):
 				candle_bytes = f.read(self.header.row_length)
 				if not candle_bytes: break
-				candle = WaxCandle(candle_bytes)
+				candle = WaxCandle(candle_bytes, row_index)
 				self.candles.append(candle)
 
 
 	def print_candles(self):
-		for idx, candle in enumerate(self.candles):
-			print(f"{idx+1}. {candle}")
+		for candle in self.candles:
+			print(candle)
 
 
