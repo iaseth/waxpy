@@ -1,8 +1,9 @@
 
 
 
-class WaxJsonFile:
-	def __init__(self, arg):
-		self.arg = arg
+class JsonFile:
+	def __init__(self, filepath):
+		self.filepath = filepath
+		self.candles = []
 
 
