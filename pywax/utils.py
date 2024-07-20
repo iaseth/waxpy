@@ -9,6 +9,11 @@ def bint(integer, width=4):
 	return integer_bytes
 
 
+def intb(integer_bytes):
+	integer = int.from_bytes(integer_bytes, 'big')
+	return integer
+
+
 def get_header_bytes(header_lines_count, column_count, row_length, row_count):
 	parts = [
 		bint(0, 2),
@@ -41,7 +46,7 @@ def bytes_to_candle(candle_bytes):
 	for x in range(6):
 		start = x * 4
 		end = start + 4
-		candle[x] = int.from_bytes(candle_bytes[start:end], 'big')
+		candle[x] = intb(candle_bytes[start:end])
 
 	for x in range(1, 5):
 		candle[x] = candle[x] / 100
