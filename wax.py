@@ -15,6 +15,7 @@ def candles_to_json(candles, output_filepath):
 
 
 def candles_to_wax(candles, output_filepath):
+	n_candles = len(candles)
 	header_lines_count = 0
 	column_count = 6
 	row_length = 24
@@ -36,7 +37,10 @@ def candles_to_wax(candles, output_filepath):
 
 	if out:
 		out.close()
-		print(f"Saved: {output_filepath}")
+		size = os.path.getsize(output_filepath)
+		kb = size / 1000
+		bytes_per_candle = size / n_candles
+		print(f"Saved: {output_filepath} ({n_candles} candles) [{kb:.1f} kB] ({bytes_per_candle:.1f} bpc)")
 
 
 def print_candles(candles):
