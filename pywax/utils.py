@@ -31,9 +31,9 @@ def get_header_bytes(header_lines_count, column_count, row_length, row_count):
 
 
 def candle_to_bytes(candle):
-	t = candle[0]
-	v = candle[5] if candle[5] else 0
-	ohlc = candle[1:5]
+	t = candle.timestamp
+	v = candle.volume
+	ohlc = candle.ohlc
 	ohlc = [int(x*100) for x in ohlc]
 	new_candle = [t, *ohlc, v]
 	byte_candle = [bint(x, 4) for x in new_candle]

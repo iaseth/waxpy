@@ -17,6 +17,11 @@ class WaxCandle:
 		self.open_interest = 0
 
 
+	@property
+	def ohlc(self):
+		return [self.open, self.high, self.low, self.close]
+
+
 	def datetime_string(self):
 		date = datetime.datetime.fromtimestamp(self.timestamp)
 		return str(date)

@@ -14,13 +14,7 @@ def candles_to_json(candles, output_filepath):
 	pass
 
 
-def candles_to_wax(input_filepath, output_filepath):
-	with open(input_filepath) as f:
-		jo = json.load(f)
-
-	candles = jo['candles']
-	# if not output_filepath: return
-
+def candles_to_wax(candles, output_filepath):
 	header_lines_count = 0
 	column_count = 6
 	row_length = 24
@@ -93,7 +87,7 @@ def main():
 	elif output_filepath.endswith('.wax'):
 		candles_to_wax(candles, output_filepath)
 	else:
-		print_candles(candles)
+		print(f"Output format not supported: {output_filepath}")
 
 
 
