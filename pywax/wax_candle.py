@@ -11,7 +11,7 @@ class WaxCandle:
 		self.low = parts[3]
 		self.close = parts[4]
 		self.volume = parts[5] if len(parts) > 5 and parts[5] else 0
-		self.open_interest = 0
+		self.open_interest = parts[6] if len(parts) > 6 and parts[6] else 0
 
 
 	@property
