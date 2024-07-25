@@ -8,7 +8,7 @@ class WaxHeader:
 		self.lines = []
 
 		self.version = intb(self.first_line[0:2])
-		self.format = intb(self.first_line[2:4])
+		self.encoding = intb(self.first_line[2:4])
 		self.header_lines_count = intb(self.first_line[4:5])
 		self.column_count = intb(self.first_line[5:6])
 		self.row_length = intb(self.first_line[6:8])
@@ -18,7 +18,7 @@ class WaxHeader:
 
 	def print(self):
 		print(f"\tVersion: {self.version}")
-		print(f"\tFormat: {self.format}")
+		print(f"\tEncoding: {self.encoding}")
 		print(f"\tHeaders: {self.header_lines_count}")
 		print(f"\tColumns: {self.column_count}")
 		print(f"\tLength: {self.row_length}")
