@@ -2,7 +2,7 @@
 import json
 import os
 
-from pywax import encode, get_header_bytes, get_args
+from pywax import get_args, get_encoding_from_code
 
 
 
@@ -15,20 +15,22 @@ def candles_to_json(candles, output_filepath):
 
 
 def candles_to_wax(candles, output_filepath):
+	encoding = get_encoding_from_code(31)
+
 	n_candles = len(candles)
 	header_lines_count = 0
-	column_count = 6
-	row_length = 24
 	row_count = len(candles)
 
 	out = open(output_filepath, 'wb') if output_filepath else None
 
-	header = get_header_bytes(header_lines_count, column_count, row_length, row_count)
+	header = encoding.get_header_bytes(header_lines_count, row_count)
 	if out:
 		out.write(header)
 
+	encoder = encoding.get_encoder()
+
 	for idx, candle in enumerate(candles):
-		candle_bytes = encode(candle)
+		candle_bytes = encoder(candle)
 		if out:
 			out.write(candle_bytes)
 		else:

@@ -1,4 +1,4 @@
-from .utils import bint, intb, zeroes
+from .utils import bint, intb, zeroes, get_header_bytes
 
 
 
@@ -17,7 +17,8 @@ class EncodingScheme:
 		widths = self.widths
 		multipliers = self.multipliers
 
-		def encoder(components):
+		def encoder(candle):
+			components = candle.components(count)
 			if len(components) != count: return None
 			components = [int(val * multipliers[idx]) for idx, val in enumerate(components)]
 			byte_candle = [bint(val, widths[idx]) for idx, val in enumerate(components)]
@@ -46,5 +47,13 @@ class EncodingScheme:
 			return components
 
 		return decoder
+
+
+	def get_header_bytes(self, header_lines_count, row_count):
+		return get_header_bytes(header_lines_count, self.count, self.width, row_count)
+
+
+	def __repr__(self):
+		return f"Encoding '{self.codeName}' ({self.code}) {self.widths}"
 
 

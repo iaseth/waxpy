@@ -21,6 +21,9 @@ class WaxCandle:
 	def ohlc(self):
 		return [self.open, self.high, self.low, self.close]
 
+	def components(self, n):
+		return [self.timestamp, self.open, self.high, self.low, self.close]
+
 
 	def datetime_string(self):
 		date = datetime.datetime.fromtimestamp(self.timestamp)
