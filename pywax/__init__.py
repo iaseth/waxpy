@@ -13,4 +13,4 @@ encode = encode_candle_to_bytes
 
 from .get_args import get_args
 from .get_candles_from_file import get_candles_from_file
-from .utils import get_header_bytes
+# from .utils import get_header_bytes

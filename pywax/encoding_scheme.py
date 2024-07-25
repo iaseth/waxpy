@@ -1,4 +1,5 @@
-from .utils import bint, intb, zeroes, get_header_bytes
+from .common import WAX_VERSION_NUMBER
+from .utils import bint, intb, zeroes
 
 
 
@@ -50,7 +51,19 @@ class EncodingScheme:
 
 
 	def get_header_bytes(self, header_lines_count, row_count):
-		return get_header_bytes(header_lines_count, self.count, self.width, row_count)
+		parts = [
+			bint(WAX_VERSION_NUMBER, 2),
+			bint(self.code, 2),
+
+			bint(header_lines_count, 1),
+			bint(self.count, 1),
+			bint(self.width, 2),
+
+			bint(row_count, 4),
+			bint(0, 4),
+		]
+		header_bytes = b''.join(parts)
+		return header_bytes
 
 
 	def __repr__(self):
