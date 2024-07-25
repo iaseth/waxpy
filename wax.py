@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 import json
+import os
 
-from pywax import WaxFile, candle_to_bytes, get_header_bytes, get_candles_from_file, get_args
+from pywax import WaxFile, candle_to_bytes, get_header_bytes, get_args
 
 
 
@@ -66,9 +67,16 @@ def main():
 
 	candles = []
 	for input_filepath in input_filepaths:
-		candles_in_file = get_candles_from_file(input_filepath.arg)
-		candles.extend(candles_in_file)
+		if input_filepath.isfile():
+			candles_in_file = input_filepath.get_candles_from_file()
+			candles.extend(candles_in_file)
+		else:
+			print(f"File NOT found: {input_filepath.arg}")
+			return
 
+	print(f"Found {len(candles)} candles.")
+	for idx, candle in enumerate(candles):
+		print(f"{idx+1}. {candle}")
 	print(f"Found {len(candles)} candles.")
 	return
 
