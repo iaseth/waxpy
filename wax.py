@@ -2,16 +2,19 @@
 import json
 import os
 
-from pywax import WaxFile, candle_to_bytes, get_header_bytes, get_args
+from pywax import candle_to_bytes, get_header_bytes, get_args
 
 
 
-def unwax(input_filepath, output_filepath):
-	wax = WaxFile(input_filepath)
-	wax.print_candles()
+def candles_to_csv(candles, output_filepath):
+	pass
 
 
-def wax(input_filepath, output_filepath):
+def candles_to_json(candles, output_filepath):
+	pass
+
+
+def candles_to_wax(input_filepath, output_filepath):
 	with open(input_filepath) as f:
 		jo = json.load(f)
 
@@ -42,6 +45,13 @@ def wax(input_filepath, output_filepath):
 		print(f"Saved: {output_filepath}")
 
 
+def print_candles(candles):
+	print(f"Found {len(candles)} candles.")
+	for idx, candle in enumerate(candles):
+		print(f"{idx+1}. {candle}")
+	print(f"Found {len(candles)} candles.")
+
+
 
 def main():
 	args = get_args()
@@ -63,7 +73,7 @@ def main():
 		return
 
 	input_filepath = input_filepaths[0].arg
-	output_filepath = output_filepaths[0].arg if len(output_filepaths) > 0 else None
+	output_filepath = output_filepaths[0].arg if len(output_filepaths) == 1 else None
 
 	candles = []
 	for input_filepath in input_filepaths:
@@ -74,16 +84,17 @@ def main():
 			print(f"File NOT found: {input_filepath.arg}")
 			return
 
-	print(f"Found {len(candles)} candles.")
-	for idx, candle in enumerate(candles):
-		print(f"{idx+1}. {candle}")
-	print(f"Found {len(candles)} candles.")
-	return
+	if not output_filepath:
+		print_candles(candles)
+	elif output_filepath.endswith('.csv'):
+		candles_to_wax(candles, output_filepath)
+	elif output_filepath.endswith('.json'):
+		candles_to_json(candles, output_filepath)
+	elif output_filepath.endswith('.wax'):
+		candles_to_wax(candles, output_filepath)
+	else:
+		print_candles(candles)
 
-	if input_filepath.endswith('.wax'):
-		unwax(input_filepath, output_filepath)
-	elif input_filepath.endswith('.json'):
-		wax(input_filepath, output_filepath)
 
 
 if __name__ == '__main__':
