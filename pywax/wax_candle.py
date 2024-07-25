@@ -3,15 +3,14 @@ import datetime
 
 
 class WaxCandle:
-	def __init__(self, candle_bytes, idx, decoder):
+	def __init__(self, parts, idx):
 		self.idx = idx
-		parts = decoder(candle_bytes)
 		self.timestamp = parts[0]
 		self.open = parts[1]
 		self.high = parts[2]
 		self.low = parts[3]
 		self.close = parts[4]
-		self.volume = parts[5] if len(parts) > 5 else 0
+		self.volume = parts[5] if len(parts) > 5 and parts[5] else 0
 		self.open_interest = 0
 
 

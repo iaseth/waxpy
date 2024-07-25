@@ -15,7 +15,8 @@ class WaxFile:
 			for row_index in range(self.header.row_count):
 				candle_bytes = f.read(self.header.row_length)
 				if not candle_bytes: break
-				candle = WaxCandle(candle_bytes, row_index, self.decoder)
+				parts = self.decoder(candle_bytes)
+				candle = WaxCandle(parts, row_index)
 				self.candles.append(candle)
 
 
