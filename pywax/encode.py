@@ -2,7 +2,7 @@ from .utils import bint
 
 
 
-def candle_to_bytes(candle):
+def encode_candle_to_bytes(candle):
 	t = candle.timestamp
 	v = candle.volume
 	ohlc = candle.ohlc

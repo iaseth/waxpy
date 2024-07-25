@@ -2,7 +2,7 @@ from .utils import intb
 
 
 
-def bytes_to_candle(candle_bytes):
+def decode_bytes_to_candle(candle_bytes):
 	candle = [0, 0, 0, 0, 0, 0]
 	for x in range(6):
 		start = x * 4

@@ -2,7 +2,7 @@
 import json
 import os
 
-from pywax import candle_to_bytes, get_header_bytes, get_args
+from pywax import encode, get_header_bytes, get_args
 
 
 
@@ -28,7 +28,7 @@ def candles_to_wax(candles, output_filepath):
 		out.write(header)
 
 	for idx, candle in enumerate(candles):
-		candle_bytes = candle_to_bytes(candle)
+		candle_bytes = encode(candle)
 		if out:
 			out.write(candle_bytes)
 		else:

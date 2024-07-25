@@ -1,13 +1,13 @@
 import datetime
 
-from .decode import bytes_to_candle
+from .decode import decode_bytes_to_candle
 
 
 
 class WaxCandle:
 	def __init__(self, candle_bytes, idx):
 		self.idx = idx
-		parts = bytes_to_candle(candle_bytes)
+		parts = decode_bytes_to_candle(candle_bytes)
 		self.timestamp = parts[0]
 		self.open = parts[1]
 		self.high = parts[2]
