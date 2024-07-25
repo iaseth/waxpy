@@ -4,6 +4,7 @@ from .json_file import JsonFile
 from .wax_candle import WaxCandle
 from .wax_file import WaxFile
 
+from .encodings import ENCODINGS
 from .decode import decode_bytes_to_candle
 from .encode import encode_candle_to_bytes
 
