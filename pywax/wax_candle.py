@@ -1,6 +1,6 @@
 import datetime
 
-from .utils import bytes_to_candle
+from .decode import bytes_to_candle
 
 
 
