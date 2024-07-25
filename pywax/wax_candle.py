@@ -3,8 +3,7 @@ import datetime
 
 
 class WaxCandle:
-	def __init__(self, parts, idx):
-		self.idx = idx
+	def __init__(self, parts):
 		self.timestamp = parts[0]
 		self.open = parts[1]
 		self.high = parts[2]
@@ -30,7 +29,7 @@ class WaxCandle:
 	def __str__(self):
 		datetime_string = self.datetime_string()
 		date, time = datetime_string.split(' ')
-		candle_string = f"| {self.idx+1:4} | {date} | {time} |"
+		candle_string = f"| {date} | {time} |"
 		candle_string += f" {self.open:8.2f} | {self.high:8.2f} | {self.low:8.2f} | {self.close:8.2f} |"
 		candle_string += f" {self.volume/1000_000:5.2f} M |"
 		candle_string += f" {self.open_interest/1000_000:5.2f} M |"

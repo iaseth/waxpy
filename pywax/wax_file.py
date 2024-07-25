@@ -12,11 +12,11 @@ class WaxFile:
 			self.decoder = self.encoding.get_decoder()
 			self.candles = []
 
-			for row_index in range(self.header.row_count):
+			for _ in range(self.header.row_count):
 				candle_bytes = f.read(self.header.row_length)
 				if not candle_bytes: break
 				parts = self.decoder(candle_bytes)
-				candle = WaxCandle(parts, row_index)
+				candle = WaxCandle(parts)
 				self.candles.append(candle)
 
 

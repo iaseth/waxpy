@@ -10,6 +10,7 @@ def iso_to_unix(iso: str):
 	d = datetime.datetime.fromisoformat(iso)
 	return int(d.timestamp())
 
+
 def parts_from_candle_dict(candle):
 	return [
 		iso_to_unix(candle['date']),
@@ -22,12 +23,12 @@ def parts_from_candle_dict(candle):
 def json_to_candles(jo):
 	candles = []
 	if 'candles' in jo and type(jo['candles']) is list and len(jo['candles']) > 0:
-		candles_data = jo['candles']
-		first_data_point = candles_data[0]
+		data = jo['candles']
+		first_data_point = data[0]
 		if type(first_data_point) is list:
-			candles = [WaxCandle(parts, idx) for idx, parts in enumerate(candles_data)]
+			candles = [WaxCandle(parts) for parts in data]
 		elif type(first_data_point) is dict:
-			candles = [WaxCandle(parts_from_candle_dict(cj), idx) for idx, cj in enumerate(candles_data)]
+			candles = [WaxCandle(parts_from_candle_dict(cj)) for cj in data]
 	elif 'data' in jo:
 		pass
 
@@ -38,11 +39,10 @@ def json_to_candles(jo):
 class JsonFile:
 	def __init__(self, filepath):
 		self.filepath = filepath
+		self.candles = []
 		if os.path.isfile(self.filepath):
 			with open(self.filepath) as f:
 				jo = json.load(f)
-				self.candles = json_to_candles(jo)
-		else:
-			self.candles = []
+			self.candles = json_to_candles(jo)
 
 
