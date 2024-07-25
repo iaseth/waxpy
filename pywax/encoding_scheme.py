@@ -3,7 +3,9 @@ from .utils import bint, intb, zeroes
 
 
 class EncodingScheme:
-	def __init__(self, widths, multipliers):
+	def __init__(self, code, codeName, widths, multipliers):
+		self.code = code
+		self.codeName = codeName
 		self.count = len(widths)
 		self.widths = widths
 		self.multipliers = multipliers

@@ -2,40 +2,36 @@ from .encoding_scheme import EncodingScheme
 
 
 
-index_2B  = EncodingScheme([4, 2, 2, 2, 2],        [1, 100, 100, 100, 100])
-stock_2B  = EncodingScheme([4, 2, 2, 2, 2, 4],     [1, 100, 100, 100, 100, 1])
-option_2B = EncodingScheme([4, 2, 2, 2, 2, 4, 4],  [1, 100, 100, 100, 100, 1, 1])
+ENCODINGS = [
+	EncodingScheme(21, "Index B2",  [4, 2, 2, 2, 2],        [1, 100, 100, 100, 100]),
+	EncodingScheme(22, "Stock B2",  [4, 2, 2, 2, 2, 4],     [1, 100, 100, 100, 100, 1]),
+	EncodingScheme(23, "Option B2", [4, 2, 2, 2, 2, 4, 4],  [1, 100, 100, 100, 100, 1, 1]),
 
-index_3B  = EncodingScheme([4, 3, 3, 3, 3],        [1, 100, 100, 100, 100])
-stock_3B  = EncodingScheme([4, 3, 3, 3, 3, 4],     [1, 100, 100, 100, 100, 1])
-option_3B = EncodingScheme([4, 3, 3, 3, 3, 4, 4],  [1, 100, 100, 100, 100, 1, 1])
+	EncodingScheme(31, "Index B3",  [4, 3, 3, 3, 3],        [1, 100, 100, 100, 100]),
+	EncodingScheme(32, "Stock B3",  [4, 3, 3, 3, 3, 4],     [1, 100, 100, 100, 100, 1]),
+	EncodingScheme(33, "Option B3", [4, 3, 3, 3, 3, 4, 4],  [1, 100, 100, 100, 100, 1, 1]),
 
-index_4B  = EncodingScheme([4, 4, 4, 4, 4],        [1, 100, 100, 100, 100])
-stock_4B  = EncodingScheme([4, 4, 4, 4, 4, 4],     [1, 100, 100, 100, 100, 1])
-option_4B = EncodingScheme([4, 4, 4, 4, 4, 4, 4],  [1, 100, 100, 100, 100, 1, 1])
+	EncodingScheme(41, "Index B4",  [4, 4, 4, 4, 4],        [1, 100, 100, 100, 100]),
+	EncodingScheme(42, "Stock B4",  [4, 4, 4, 4, 4, 4],     [1, 100, 100, 100, 100, 1]),
+	EncodingScheme(43, "Option B4", [4, 4, 4, 4, 4, 4, 4],  [1, 100, 100, 100, 100, 1, 1]),
 
-index_5B  = EncodingScheme([4, 5, 5, 5, 5],        [1, 100, 100, 100, 100])
-stock_5B  = EncodingScheme([4, 5, 5, 5, 5, 4],     [1, 100, 100, 100, 100, 1])
-option_5B = EncodingScheme([4, 5, 5, 5, 5, 4, 4],  [1, 100, 100, 100, 100, 1, 1])
+	EncodingScheme(51, "Index B5",  [4, 5, 5, 5, 5],        [1, 100, 100, 100, 100]),
+	EncodingScheme(52, "Stock B5",  [4, 5, 5, 5, 5, 4],     [1, 100, 100, 100, 100, 1]),
+	EncodingScheme(53, "Option B5", [4, 5, 5, 5, 5, 4, 4],  [1, 100, 100, 100, 100, 1, 1]),
+]
 
 
+def get_encoding_from_code(code):
+	for encoding in ENCODINGS:
+		if encoding.code == code:
+			return encoding
+	return None
 
-ENCODINGS = {}
 
-ENCODINGS["21"] = index_2B
-ENCODINGS["22"] = stock_2B
-ENCODINGS["23"] = option_2B
-
-ENCODINGS["31"] = index_3B
-ENCODINGS["32"] = stock_3B
-ENCODINGS["33"] = option_3B
-
-ENCODINGS["41"] = index_4B
-ENCODINGS["42"] = stock_4B
-ENCODINGS["43"] = option_4B
-
-ENCODINGS["51"] = index_5B
-ENCODINGS["52"] = stock_5B
-ENCODINGS["53"] = option_5B
+def get_encoding_from_codename(codeName):
+	for encoding in ENCODINGS:
+		if encoding.codeName == codeName:
+			return encoding
+	return None
 
 
