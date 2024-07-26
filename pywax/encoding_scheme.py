@@ -14,12 +14,6 @@ class EncodingScheme:
 		self.width = sum(widths)
 
 
-	def to_bytes(self):
-		byte_candle = [bint(val, widths[idx]) for idx, val in enumerate(components)]
-		candle_bytes = b''.join(byte_candle)
-		return candle_bytes
-
-
 	def get_encoder(self):
 		count = self.count
 		widths = self.widths
@@ -71,6 +65,40 @@ class EncodingScheme:
 		]
 		header_bytes = b''.join(parts)
 		return header_bytes
+
+
+	def get_codename_bytes(self):
+		byte_candle = []
+		for i in range(14):
+			ch = self.codeName[i] if len(self.codeName) > i else ' '
+			b = ch.encode()
+			byte_candle.append(b)
+		return byte_candle
+
+	def get_widths_bytes(self):
+		byte_candle = []
+		for i in range(16):
+			x = self.widths[i] if len(self.widths) > i else 0
+			b = bint(x, 1)
+			byte_candle.append(b)
+		return byte_candle
+
+	def get_multipliers_bytes(self):
+		byte_candle = []
+		for i in range(16):
+			x = self.multipliers[i] if len(self.multipliers) > i else 1
+			b = bint(x, 1)
+			byte_candle.append(b)
+		return byte_candle
+
+	def to_bytes(self):
+		code_bytes = bint(self.code, 2)
+		byte_candle = [code_bytes]
+		byte_candle.extend(self.get_codename_bytes())
+		byte_candle.extend(self.get_widths_bytes())
+		byte_candle.extend(self.get_multipliers_bytes())
+		candle_bytes = b''.join(byte_candle)
+		return candle_bytes
 
 
 	def __repr__(self):
