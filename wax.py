@@ -108,6 +108,12 @@ def raw_command(input_filepaths):
 	print(f"Found {len(candles)} candles.")
 
 
+def encodings_command():
+	print(f"Wax Version {WAX_VERSION} comes with {len(ENCODINGS)} encodings:")
+	for idx, encoding in enumerate(ENCODINGS):
+		print(f"\t{idx+1:3}. {encoding}")
+
+
 def help_command():
 	print(f"List of available commands:")
 	print(f"\tCSV      - Compile one or more files into CSV file.")
@@ -163,6 +169,8 @@ def main():
 		case 'RAW' | 'R':
 			raw_command(input_filepaths)
 
+		case 'ENCODINGS' | 'E':
+			encodings_command()
 		case 'HELP' | 'H':
 			help_command()
 		case 'VERSION' | 'V':
