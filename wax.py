@@ -2,7 +2,7 @@
 import json
 import os
 
-from pywax import get_args, get_encoding_from_code
+from pywax import get_args, get_encoding_from_code, WAX_VERSION, ENCODINGS
 
 
 
@@ -96,11 +96,16 @@ def print_command(input_filepaths):
 
 
 def help_command():
-	print(f"This is help info.")
+	print(f"List of available commands:")
+	print(f"\tCSV      - Compile one or more files into CSV file.")
+	print(f"\tJSON     - Compile one or more files into JSON file.")
+	print(f"\tWAX      - Compile one or more files into WAX file.")
+	print(f"\tHELP     - Display help information.")
+	print(f"\tVERSION  - Display version information.")
 
 
 def version_command():
-	print(f"This is version info.")
+	print(f"This is Wax Version {WAX_VERSION} with {len(ENCODINGS)} encodings.")
 
 
 def unknown_command(command: str):

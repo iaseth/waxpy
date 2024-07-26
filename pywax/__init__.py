@@ -1,4 +1,6 @@
 
+from .common import WAX_VERSION
+
 from .csv_file import CsvFile
 from .json_file import JsonFile
 from .wax_candle import WaxCandle
