@@ -116,12 +116,14 @@ def encodings_command():
 
 def help_command():
 	print(f"List of available commands:")
-	print(f"\tCSV      - Compile one or more files into CSV file.")
-	print(f"\tJSON     - Compile one or more files into JSON file.")
-	print(f"\tWAX      - Compile one or more files into WAX file.")
-	print(f"\tPRINT    - Print candles from one or more files to the console.")
-	print(f"\tHELP     - Display help information.")
-	print(f"\tVERSION  - Display version information.")
+	print(f"\tCSV       - Compile one or more files into CSV file.")
+	print(f"\tJSON      - Compile one or more files into JSON file.")
+	print(f"\tWAX       - Compile one or more files into WAX file.")
+	print(f"\tPRINT     - Print formatted candles from one or more files to the console.")
+	print(f"\tRAW       - Print raw candle data from one or more files to the console.")
+	print(f"\tHELP      - Display help information.")
+	print(f"\tVERSION   - Display version information.")
+	print(f"\tXPERIMENT - For testing purposes.")
 
 
 def version_command():
