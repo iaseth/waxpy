@@ -6,15 +6,52 @@ from pywax import get_args, get_encoding_from_code
 
 
 
-def candles_to_csv(candles, output_filepath):
-	pass
+def get_candles_from_input_filepaths(input_filepaths):
+	candles = []
+	for input_filepath in input_filepaths:
+		if input_filepath.isfile():
+			candles_in_file = input_filepath.get_candles_from_file()
+			candles.extend(candles_in_file)
+		else:
+			print(f"File NOT found: {input_filepath.arg}")
+
+	return candles
 
 
-def candles_to_json(candles, output_filepath):
-	pass
+def csv_command(input_filepaths, output_filepath):
+	if len(input_filepaths) == 0:
+		print(f"No input file path supplied!")
+		return
+
+	if not output_filepath:
+		print(f"No output file supplied!")
+		return
+
+	candles = get_candles_from_input_filepaths(input_filepaths)
 
 
-def candles_to_wax(candles, output_filepath):
+def json_command(input_filepaths, output_filepath):
+	if len(input_filepaths) == 0:
+		print(f"No input file path supplied!")
+		return
+
+	if not output_filepath:
+		print(f"No output file supplied!")
+		return
+
+	candles = get_candles_from_input_filepaths(input_filepaths)
+
+
+def wax_command(input_filepaths, output_filepath):
+	if len(input_filepaths) == 0:
+		print(f"No input file path supplied!")
+		return
+
+	if not output_filepath:
+		print(f"No output file supplied!")
+		return
+
+	candles = get_candles_from_input_filepaths(input_filepaths)
 	encoding = get_encoding_from_code(32)
 
 	n_candles = len(candles)
@@ -45,7 +82,13 @@ def candles_to_wax(candles, output_filepath):
 		print(f"Saved: {output_filepath} ({n_candles} candles) [{kb:.1f} kB] ({bytes_per_candle:.1f} bpc)")
 
 
-def print_candles(candles):
+def print_command(input_filepaths):
+	if len(input_filepaths) == 0:
+		print(f"No input file path supplied!")
+		return
+
+	candles = get_candles_from_input_filepaths(input_filepaths)
+
 	print(f"Found {len(candles)} candles.")
 	for idx, candle in enumerate(candles):
 		print(f"{idx+1}. {candle}")
@@ -58,6 +101,10 @@ def help_command():
 
 def version_command():
 	print(f"This is version info.")
+
+
+def unknown_command(command: str):
+	print(f"Unknown command: '{command}'")
 
 
 
@@ -82,36 +129,21 @@ def main():
 	double_flags = [arg for arg in args if arg.is_double_flag()]
 
 	match command:
+		case 'CSV' | 'C':
+			csv_command(input_filepaths, output_filepath)
+		case 'JSON' | 'J':
+			json_command(input_filepaths, output_filepath)
+		case 'WAX' | 'W':
+			wax_command(input_filepaths, output_filepath)
+		case 'PRINT' | 'P':
+			print_command(input_filepaths)
+
 		case 'HELP' | 'H':
 			help_command()
 		case 'VERSION' | 'V':
 			version_command()
 		case _:
-			pass
-
-	if len(input_filepaths) == 0:
-		print(f"No input file path supplied!")
-		return
-
-	candles = []
-	for input_filepath in input_filepaths:
-		if input_filepath.isfile():
-			candles_in_file = input_filepath.get_candles_from_file()
-			candles.extend(candles_in_file)
-		else:
-			print(f"File NOT found: {input_filepath.arg}")
-			return
-
-	if not output_filepath:
-		print_candles(candles)
-	elif output_filepath.endswith('.csv'):
-		candles_to_wax(candles, output_filepath)
-	elif output_filepath.endswith('.json'):
-		candles_to_json(candles, output_filepath)
-	elif output_filepath.endswith('.wax'):
-		candles_to_wax(candles, output_filepath)
-	else:
-		print(f"Output format not supported: {output_filepath}")
+			unknown_command(command)
 
 
 
