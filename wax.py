@@ -100,12 +100,17 @@ def help_command():
 	print(f"\tCSV      - Compile one or more files into CSV file.")
 	print(f"\tJSON     - Compile one or more files into JSON file.")
 	print(f"\tWAX      - Compile one or more files into WAX file.")
+	print(f"\tPRINT    - Print candles from one or more files to the console.")
 	print(f"\tHELP     - Display help information.")
 	print(f"\tVERSION  - Display version information.")
 
 
 def version_command():
 	print(f"This is Wax Version {WAX_VERSION} with {len(ENCODINGS)} encodings.")
+
+
+def xperiment_command():
+	print(f"This is just an experiment.")
 
 
 def unknown_command(command: str):
@@ -147,6 +152,8 @@ def main():
 			help_command()
 		case 'VERSION' | 'V':
 			version_command()
+		case 'XPERIMENT' | 'X':
+			xperiment_command()
 		case _:
 			unknown_command(command)
 
