@@ -52,28 +52,46 @@ def print_candles(candles):
 	print(f"Found {len(candles)} candles.")
 
 
+def help_command():
+	print(f"This is help info.")
+
+
+def version_command():
+	print(f"This is version info.")
+
+
 
 def main():
-	args = get_args()
+	command, args = get_args()
+	command = command.upper()
 
-	if len(args) == 0:
+	if not command:
+		print(f"No command supplied!")
+		print(f"\t$ wax.py command args")
 		return
 
 	input_filepaths = [arg for arg in args if arg.is_input_filepath()]
 	output_filepaths = [arg for arg in args if arg.is_output_filepath()]
-	single_flags = [arg for arg in args if arg.is_single_flag()]
-	double_flags = [arg for arg in args if arg.is_double_flag()]
-
-	if len(input_filepaths) == 0:
-		print(f"No input file path supplied!")
-		return
 
 	if len(output_filepaths) > 1:
 		print(f"Too many output file paths supplied!")
 		return
 
-	input_filepath = input_filepaths[0].arg
 	output_filepath = output_filepaths[0].arg if len(output_filepaths) == 1 else None
+	single_flags = [arg for arg in args if arg.is_single_flag()]
+	double_flags = [arg for arg in args if arg.is_double_flag()]
+
+	match command:
+		case 'HELP' | 'H':
+			help_command()
+		case 'VERSION' | 'V':
+			version_command()
+		case _:
+			pass
+
+	if len(input_filepaths) == 0:
+		print(f"No input file path supplied!")
+		return
 
 	candles = []
 	for input_filepath in input_filepaths:
