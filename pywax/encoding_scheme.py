@@ -102,6 +102,9 @@ class EncodingScheme:
 
 
 	def __repr__(self):
-		return f"Encoding '{self.codeName}' ({self.code}) {self.widths}"
+		codeName = f"'{self.codeName}'"
+		widths_string = [str(x) for x in self.widths]
+		widths_string = "+".join(widths_string)
+		return f"Encoding {codeName:14} {self.code}b [{widths_string}]"
 
 
