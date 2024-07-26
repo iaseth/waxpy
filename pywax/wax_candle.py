@@ -17,7 +17,7 @@ class WaxCandle:
 	def ohlc(self):
 		return [self.open, self.high, self.low, self.close]
 
-	def components(self, n):
+	def components(self, n=5):
 		if n == 5:
 			return [self.timestamp, self.open, self.high, self.low, self.close]
 		else:

@@ -95,6 +95,19 @@ def print_command(input_filepaths):
 	print(f"Found {len(candles)} candles.")
 
 
+def raw_command(input_filepaths):
+	if len(input_filepaths) == 0:
+		print(f"No input file path supplied!")
+		return
+
+	candles = get_candles_from_input_filepaths(input_filepaths)
+
+	print(f"Found {len(candles)} candles.")
+	for idx, candle in enumerate(candles):
+		print(f"{idx+1}. {candle.components(6)}")
+	print(f"Found {len(candles)} candles.")
+
+
 def help_command():
 	print(f"List of available commands:")
 	print(f"\tCSV      - Compile one or more files into CSV file.")
@@ -147,6 +160,8 @@ def main():
 			wax_command(input_filepaths, output_filepath)
 		case 'PRINT' | 'P':
 			print_command(input_filepaths)
+		case 'RAW' | 'R':
+			raw_command(input_filepaths)
 
 		case 'HELP' | 'H':
 			help_command()
