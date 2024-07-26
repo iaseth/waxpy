@@ -28,3 +28,19 @@ def zeroes(n: int):
 		case _: return []
 
 
+def count_zeroes(arr):
+	count = 0
+	for x in arr:
+		if x == 0:
+			count += 1
+	return count
+
+
+def count_non_zeroes(arr):
+	count = 0
+	for x in arr:
+		if x != 0:
+			count += 1
+	return count
+
+

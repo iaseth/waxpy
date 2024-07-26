@@ -1,5 +1,6 @@
 from .common import WAX_VERSION_NUMBER
-from .utils import bint, intb, zeroes
+from .utils import bint, intb
+from .utils import zeroes, count_non_zeroes
 
 
 
@@ -7,10 +8,16 @@ class EncodingScheme:
 	def __init__(self, code, codeName, widths, multipliers):
 		self.code = code
 		self.codeName = codeName
-		self.count = len(widths)
+		self.count = count_non_zeroes(widths)
 		self.widths = widths
 		self.multipliers = multipliers
 		self.width = sum(widths)
+
+
+	def to_bytes(self):
+		byte_candle = [bint(val, widths[idx]) for idx, val in enumerate(components)]
+		candle_bytes = b''.join(byte_candle)
+		return candle_bytes
 
 
 	def get_encoder(self):
