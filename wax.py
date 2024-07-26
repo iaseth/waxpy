@@ -15,7 +15,7 @@ def candles_to_json(candles, output_filepath):
 
 
 def candles_to_wax(candles, output_filepath):
-	encoding = get_encoding_from_code(31)
+	encoding = get_encoding_from_code(32)
 
 	n_candles = len(candles)
 	header_lines_count = 0

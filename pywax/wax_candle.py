@@ -18,7 +18,10 @@ class WaxCandle:
 		return [self.open, self.high, self.low, self.close]
 
 	def components(self, n):
-		return [self.timestamp, self.open, self.high, self.low, self.close]
+		if n == 5:
+			return [self.timestamp, self.open, self.high, self.low, self.close]
+		else:
+			return [self.timestamp, self.open, self.high, self.low, self.close, self.volume]
 
 
 	def datetime_string(self):
