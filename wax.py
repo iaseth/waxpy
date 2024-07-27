@@ -114,12 +114,15 @@ def encodings_command():
 		print(f"\t{idx+1:3}. {encoding}")
 
 
-def export_command(output_filepath="ENCODINGS"):
+def export_command(first_arg, output_filepath):
+	if not output_filepath:
+		output_filepath = "ENCODINGS"
+
 	with open(output_filepath, 'wb') as f:
 		for encoding in ENCODINGS:
 			f.write(encoding.to_bytes())
 
-	print(f"Saved: {output_filepath} ({len(ENCODINGS)} encodings)")
+	print(f"Saved: {output_filepath} ({len(ENCODINGS)} encodings) [{first_arg}]")
 
 
 def help_command():
@@ -142,7 +145,16 @@ def version_command():
 
 
 def xperiment_command():
-	print(f"This is just an experiment.")
+	encodings = []
+	for encoding in ENCODINGS:
+		encodings.append(encoding.to_json())
+
+	jo = {}
+	jo['encodings'] = encodings
+	output_filepath = 'encodings.json'
+	with open(output_filepath, 'w') as f:
+		json.dump(jo, f, sort_keys=True, indent='\t')
+	print(f"Saved: {output_filepath}")
 
 
 def unknown_command(command: str):
@@ -153,6 +165,7 @@ def unknown_command(command: str):
 def main():
 	command, args = get_args()
 	command = command.upper()
+	first_arg = args[0].arg if len(args) > 0 else None
 
 	if not command:
 		print(f"No command supplied!")
@@ -185,7 +198,7 @@ def main():
 		case 'ENCODINGS' | 'E':
 			encodings_command()
 		case 'EXPORT':
-			export_command()
+			export_command(first_arg, output_filepath)
 		case 'HELP' | 'H':
 			help_command()
 		case 'VERSION' | 'V':

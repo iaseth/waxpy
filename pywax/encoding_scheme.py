@@ -101,6 +101,15 @@ class EncodingScheme:
 		return candle_bytes
 
 
+	def to_json(self):
+		jo = {}
+		jo['code'] = self.code
+		jo['codeName'] = self.codeName
+		jo['widths'] = self.widths
+		jo['multipliers'] = self.multipliers
+		return jo
+
+
 	def __repr__(self):
 		codeName = f"'{self.codeName}'"
 		widths_string = [str(x) for x in self.widths]
