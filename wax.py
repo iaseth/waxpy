@@ -114,6 +114,14 @@ def encodings_command():
 		print(f"\t{idx+1:3}. {encoding}")
 
 
+def export_command(output_filepath="ENCODINGS"):
+	with open(output_filepath, 'wb') as f:
+		for encoding in ENCODINGS:
+			f.write(encoding.to_bytes())
+
+	print(f"Saved: {output_filepath} ({len(ENCODINGS)} encodings)")
+
+
 def help_command():
 	print(f"List of available commands:")
 	print(f"\tCSV       - Compile one or more files into CSV file.")
@@ -121,6 +129,9 @@ def help_command():
 	print(f"\tWAX       - Compile one or more files into WAX file.")
 	print(f"\tPRINT     - Print formatted candles from one or more files to the console.")
 	print(f"\tRAW       - Print raw candle data from one or more files to the console.")
+
+	print(f"\tENCODINGS - List all supported encodings.")
+	print(f"\tEXPORT    - Export all supported encodings to a file.")
 	print(f"\tHELP      - Display help information.")
 	print(f"\tVERSION   - Display version information.")
 	print(f"\tXPERIMENT - For testing purposes.")
@@ -173,6 +184,8 @@ def main():
 
 		case 'ENCODINGS' | 'E':
 			encodings_command()
+		case 'EXPORT':
+			export_command()
 		case 'HELP' | 'H':
 			help_command()
 		case 'VERSION' | 'V':
