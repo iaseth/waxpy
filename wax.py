@@ -125,6 +125,22 @@ def export_command(first_arg, output_filepath):
 	print(f"Saved: {output_filepath} ({len(ENCODINGS)} encodings) [{first_arg}]")
 
 
+def export_json_command(output_filepath):
+	if not output_filepath:
+		output_filepath = "encodings.json"
+
+	encodings = []
+	for encoding in ENCODINGS:
+		encodings.append(encoding.to_json())
+
+	jo = {}
+	jo['encodings'] = encodings
+	output_filepath = 'encodings.json'
+	with open(output_filepath, 'w') as f:
+		json.dump(jo, f, sort_keys=True, indent='\t')
+	print(f"Saved: {output_filepath} ({len(ENCODINGS)} encodings)")
+
+
 def help_command():
 	print(f"List of available commands:")
 	print(f"\tCSV       - Compile one or more files into CSV file.")
@@ -199,6 +215,8 @@ def main():
 			encodings_command()
 		case 'EXPORT':
 			export_command(first_arg, output_filepath)
+		case 'EXPORT-JSON':
+			export_json_command(output_filepath)
 		case 'HELP' | 'H':
 			help_command()
 		case 'VERSION' | 'V':

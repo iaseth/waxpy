@@ -105,8 +105,9 @@ class EncodingScheme:
 		jo = {}
 		jo['code'] = self.code
 		jo['codeName'] = self.codeName
-		jo['widths'] = self.widths
-		jo['multipliers'] = self.multipliers
+		jo['widths'] = str(self.widths)
+		jo['multipliers'] = str(self.multipliers)
+		jo['ready'] = True
 		return jo
 
 
