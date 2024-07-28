@@ -5,6 +5,7 @@ HEADER_LENGTH = 16
 
 
 def bint(integer, width=4):
+	if integer < 0: integer = 0
 	integer_bytes = (integer).to_bytes(width, 'big')
 	return integer_bytes
 

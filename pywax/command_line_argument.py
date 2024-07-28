@@ -45,6 +45,7 @@ class CommandLineArgument:
 	def get_candles_from_directory(self):
 		if not self.isdir(): return []
 		filenames = os.listdir(self.arg)
+		filenames.sort()
 		filepaths = [os.path.join(self.arg, f) for f in filenames]
 
 		candles = []
@@ -52,6 +53,7 @@ class CommandLineArgument:
 			candles_in_file = get_candles_from_file(filepath)
 			candles.extend(candles_in_file)
 
+		candles.sort()
 		return candles
 
 	def __repr__(self):

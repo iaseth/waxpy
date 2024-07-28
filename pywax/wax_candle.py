@@ -29,6 +29,10 @@ class WaxCandle:
 		return str(date)
 
 
+	def __lt__(self, other):
+		return True if self.timestamp < other.timestamp else False
+
+
 	def __str__(self):
 		datetime_string = self.datetime_string()
 		date, time = datetime_string.split(' ')

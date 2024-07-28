@@ -43,8 +43,10 @@ def json_to_candles(jo):
 	elif 'data' in jo and type(jo['data']) is dict:
 		data = jo['data']
 		if 't' in data and 'o' in data and 'h' in data and 'l' in data and 'c' in data and 'v' in data:
-			candles = [WaxCandle(parts_from_data_dict(data, idx)) for idx, _ in enumerate(data['t'])]
+			if type(data['t']) is list:
+				candles = [WaxCandle(parts_from_data_dict(data, idx)) for idx, _ in enumerate(data['t'])]
 
+	candles.sort()
 	return candles
 
 
