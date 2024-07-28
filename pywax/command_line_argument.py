@@ -35,9 +35,24 @@ class CommandLineArgument:
 	def isfile(self):
 		return os.path.isfile(self.arg)
 
+	def isdir(self):
+		return os.path.isdir(self.arg)
+
 	def get_candles_from_file(self):
 		candles_in_file = get_candles_from_file(self.arg)
 		return candles_in_file
+
+	def get_candles_from_directory(self):
+		if not self.isdir(): return []
+		filenames = os.listdir(self.arg)
+		filepaths = [os.path.join(self.arg, f) for f in filenames]
+
+		candles = []
+		for filepath in filepaths:
+			candles_in_file = get_candles_from_file(filepath)
+			candles.extend(candles_in_file)
+
+		return candles
 
 	def __repr__(self):
 		return f"'{self.arg}'"

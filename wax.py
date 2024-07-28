@@ -6,14 +6,17 @@ from pywax import get_args, get_encoding_from_code, WAX_VERSION, ENCODINGS
 
 
 
-def get_candles_from_input_filepaths(input_filepaths):
+def get_candles_from_input_paths(input_paths):
 	candles = []
-	for input_filepath in input_filepaths:
-		if input_filepath.isfile():
-			candles_in_file = input_filepath.get_candles_from_file()
+	for input_path in input_paths:
+		if input_path.isfile():
+			candles_in_file = input_path.get_candles_from_file()
 			candles.extend(candles_in_file)
+		elif input_path.isdir():
+			candles_in_directory = input_path.get_candles_from_directory()
+			candles.extend(candles_in_directory)
 		else:
-			print(f"File NOT found: {input_filepath.arg}")
+			print(f"File NOT found: {input_path.arg}")
 
 	return candles
 
@@ -27,7 +30,7 @@ def csv_command(input_filepaths, output_filepath):
 		print(f"No output file supplied!")
 		return
 
-	candles = get_candles_from_input_filepaths(input_filepaths)
+	candles = get_candles_from_input_paths(input_filepaths)
 
 
 def json_command(input_filepaths, output_filepath):
@@ -39,7 +42,7 @@ def json_command(input_filepaths, output_filepath):
 		print(f"No output file supplied!")
 		return
 
-	candles = get_candles_from_input_filepaths(input_filepaths)
+	candles = get_candles_from_input_paths(input_filepaths)
 
 
 def wax_command(input_filepaths, output_filepath):
@@ -51,7 +54,7 @@ def wax_command(input_filepaths, output_filepath):
 		print(f"No output file supplied!")
 		return
 
-	candles = get_candles_from_input_filepaths(input_filepaths)
+	candles = get_candles_from_input_paths(input_filepaths)
 	encoding = get_encoding_from_code(32)
 
 	n_candles = len(candles)
@@ -87,7 +90,7 @@ def print_command(input_filepaths):
 		print(f"No input file path supplied!")
 		return
 
-	candles = get_candles_from_input_filepaths(input_filepaths)
+	candles = get_candles_from_input_paths(input_filepaths)
 
 	print(f"Found {len(candles)} candles.")
 	for idx, candle in enumerate(candles):
@@ -100,7 +103,7 @@ def raw_command(input_filepaths):
 		print(f"No input file path supplied!")
 		return
 
-	candles = get_candles_from_input_filepaths(input_filepaths)
+	candles = get_candles_from_input_paths(input_filepaths)
 
 	print(f"Found {len(candles)} candles.")
 	for idx, candle in enumerate(candles):
