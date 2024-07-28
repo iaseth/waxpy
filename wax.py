@@ -144,6 +144,20 @@ def export_json_command(output_filepath):
 	print(f"Saved: {output_filepath} ({len(ENCODINGS)} encodings)")
 
 
+def header_command(input_filepaths):
+	if len(input_filepaths) == 0:
+		print(f"No input file path supplied!")
+		return
+
+	for input_filepath in input_filepaths:
+		if input_filepath.isfile():
+			print(f"File: {input_filepath.arg}")
+			header = input_filepath.get_header()
+			header.print()
+		else:
+			print(f"Not Found: {input_filepath.arg}")
+
+
 def help_command():
 	print(f"List of available commands:")
 	print(f"\tCSV       - Compile one or more files into CSV file.")
@@ -220,6 +234,8 @@ def main():
 			export_command(first_arg, output_filepath)
 		case 'EXPORT-JSON':
 			export_json_command(output_filepath)
+		case 'HEADER' | 'HD':
+			header_command(input_filepaths)
 		case 'HELP' | 'H':
 			help_command()
 		case 'VERSION' | 'V':

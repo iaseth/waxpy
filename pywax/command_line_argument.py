@@ -1,6 +1,7 @@
 import os
 
 from .get_candles_from_file import get_candles_from_file
+from .wax_header import WaxHeader
 
 
 
@@ -55,6 +56,13 @@ class CommandLineArgument:
 
 		candles.sort()
 		return candles
+
+	def get_header(self):
+		header = None
+		if self.isfile():
+			with open(self.arg, 'rb') as f:
+				header = WaxHeader(f)
+		return header
 
 	def __repr__(self):
 		return f"'{self.arg}'"
