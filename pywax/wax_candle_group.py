@@ -2,7 +2,7 @@
 
 
 class WaxCandleGroup:
-	def __init__(self, candles):
+	def __init__(self, candles, step=25):
 		self.candles = candles
 		self.open = self.candles[0].open
 		self.close = self.candles[-1].open
@@ -13,7 +13,7 @@ class WaxCandleGroup:
 		self.low = min(lows)
 		self.levels = []
 		for level in range(int(self.low), int(self.high), 1):
-			if level % 25 == 0:
+			if level % step == 0:
 				self.levels.append(level)
 
 	def get_important_levels(self, min_overlap_count=15, strict=False, leeway=0):

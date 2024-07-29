@@ -49,10 +49,10 @@ def analyze_command(input_filepaths, output_filepath):
 		end_timestamp = end_date.timestamp()
 
 		day_candles = [c for c in candles if c.timestamp > start_timestamp and c.timestamp < end_timestamp]
-		day = WaxCandleGroup(day_candles)
+		day = WaxCandleGroup(day_candles, step=50)
 		print(f"{day.open:5.0f} {day.high:5.0f} {day.low:5.0f} {day.close:5.0f} -- ", end='')
-		levels = day.get_important_levels(leeway=5)
-		print(levels)
+		levels = day.get_important_levels(min_overlap_count=20, strict=True, leeway=10)
+		print(levels[:8])
 
 
 def csv_command(input_filepaths, output_filepath):
