@@ -4,6 +4,7 @@ from .common import WAX_VERSION
 from .csv_file import CsvFile
 from .json_file import JsonFile
 from .wax_candle import WaxCandle
+from .wax_candle_group import WaxCandleGroup
 from .wax_file import WaxFile
 
 from .encodings import ENCODINGS, get_encoding_from_code, get_encoding_from_codename

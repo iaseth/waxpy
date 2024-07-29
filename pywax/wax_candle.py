@@ -24,9 +24,29 @@ class WaxCandle:
 			return [self.timestamp, self.open, self.high, self.low, self.close, self.volume]
 
 
-	def datetime_string(self):
+	def date(self):
 		date = datetime.datetime.fromtimestamp(self.timestamp)
-		return str(date)
+		return date
+
+	def date_string(self):
+		return str(self.date())[:10]
+
+	def datetime_string(self):
+		return str(self.date())
+
+
+	def overlaps(self, level, strict=False, leeway=0):
+		high = max(self.open, self.close) if strict else self.high
+		low = min(self.open, self.close) if strict else self.low
+
+		if leeway:
+			high += leeway
+			low -= leeway
+
+		if high >= level and low <= level:
+			return True
+		else:
+			return False
 
 
 	def __lt__(self, other):
