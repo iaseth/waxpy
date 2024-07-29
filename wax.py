@@ -1,8 +1,10 @@
 #!/usr/bin/python3
+import datetime
 import json
 import os
 
-from pywax import get_args, get_encoding_from_code, WAX_VERSION, ENCODINGS
+from pywax import get_args, get_encoding_from_code, WaxCandleGroup
+from pywax import WAX_VERSION, ENCODINGS
 
 
 
@@ -19,6 +21,38 @@ def get_candles_from_input_paths(input_paths):
 			print(f"File NOT found: {input_path.arg}")
 
 	return candles
+
+
+def analyze_command(input_filepaths, output_filepath):
+	if len(input_filepaths) == 0:
+		print(f"No input file path supplied!")
+		return
+
+	candles = get_candles_from_input_paths(input_filepaths)
+
+	start_date = datetime.datetime(2024, 1, 1)
+	start_timestamp = start_date.timestamp()
+	candles = [c for c in candles if c.timestamp > start_timestamp]
+
+	date_strings = [c.date_string() for c in candles]
+	date_strings = sorted(list(set(date_strings)))
+
+	one_day = datetime.timedelta(days=1)
+	for idx, date_string in enumerate(date_strings):
+		# print(f"{idx+1:3} | {len(date_strings)} -- {date_string} -- ", end='')
+		print(f"{date_string} -- ", end='')
+		parts = [int(p) for p in date_string.split('-')]
+
+		start_date = datetime.datetime(*parts)
+		end_date = start_date + one_day
+		start_timestamp = start_date.timestamp()
+		end_timestamp = end_date.timestamp()
+
+		day_candles = [c for c in candles if c.timestamp > start_timestamp and c.timestamp < end_timestamp]
+		day = WaxCandleGroup(day_candles)
+		print(f"{day.open:5.0f} {day.high:5.0f} {day.low:5.0f} {day.close:5.0f} -- ", end='')
+		levels = day.get_important_levels(leeway=5)
+		print(levels)
 
 
 def csv_command(input_filepaths, output_filepath):
@@ -217,6 +251,8 @@ def main():
 	double_flags = [arg for arg in args if arg.is_double_flag()]
 
 	match command:
+		case 'ANALYZE' | 'A':
+			analyze_command(input_filepaths, output_filepath)
 		case 'CSV' | 'C':
 			csv_command(input_filepaths, output_filepath)
 		case 'JSON' | 'J':

@@ -22,6 +22,9 @@ class WaxCandleGroup:
 			overlap_count = self.get_overlap_count(level, strict=strict, leeway=leeway)
 			if overlap_count >= min_overlap_count:
 				important_levels.append([level, overlap_count])
+
+		important_levels.sort(key=lambda x:x[1])
+		important_levels.reverse()
 		return important_levels
 
 	def get_overlap_count(self, level, strict=False, leeway=0):
